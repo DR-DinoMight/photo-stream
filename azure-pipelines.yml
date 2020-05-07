@@ -3,6 +3,9 @@
 # Add steps that build, test, save build artifacts, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  NET_ACCESS_TOKEN: $(netlifyAccessToken)
+
 trigger:
 - master
 
@@ -32,7 +35,7 @@ steps:
 
 - script:  >-
       curl
-      -H 'Authorization: Bearer $(netlifyAccessToken)' 
+      -H 'Authorization: Bearer $(NET_ACCESS_TOKEN)' 
       -H 'Content-Type: application/zip'
       --data-binary '@$(Build.BuildId).zip'
       https://api.netlify.com/api/v1/sites/$(netlifySiteId)/deploys
