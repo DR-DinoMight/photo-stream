@@ -1,7 +1,7 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Ruby
+# Package your Ruby project.
+# Add steps that install rails, analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/ruby
 
 trigger:
 - master
@@ -9,10 +9,27 @@ trigger:
 pool: Deadpool
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: UseRubyVersion@0
+  inputs:
+    versionSpec: '>= 2.5'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    gem install jekyll bundler
+    bundle install --retry=3 --jobs=4
+  displayName: 'bundle install'
+ 
+- script: |
+    bundle install
+    jekyll build
+  displayName: 'jekyll'
+ 
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: '_site'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: site
