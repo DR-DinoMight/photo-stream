@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'Deadpool'
+  vmImage: Deadpool
 
 steps:
 - script: echo Hello, world!
