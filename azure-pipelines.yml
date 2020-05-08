@@ -19,7 +19,7 @@ steps:
   displayName: 'bundle install'
   
 - script: |
-    jekyll build
+    bundle exec jekyll build
   displayName: 'jekyll'
 
 - task: ArchiveFiles@2
