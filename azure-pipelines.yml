@@ -23,7 +23,7 @@ steps:
   displayName: 'jekyll'
 
 - script:  >-
-      zip -r $(Build.ArtifactStagingDirectory)/$(build.BuildId).zip _site
+      zip -r $(Build.ArtifactStagingDirectory)/$(build.BuildId).zip _site/
   displayName: 'Zip Site to $(Build.ArtifactStagingDirectory)/$(build.BuildId).zip'
 
 
