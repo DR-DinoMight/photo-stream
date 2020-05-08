@@ -22,14 +22,10 @@ steps:
     bundle exec jekyll build
   displayName: 'jekyll'
 
-- task: ArchiveFiles@2
+- script:  >-
+      zip -r $(Build.ArtifactStagingDirectory)/$(build.BuildId).zip _site
   displayName: 'Zip Site to $(Build.ArtifactStagingDirectory)/$(build.BuildId).zip'
-  inputs:
-    rootFolderOrFile: '_site'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(build.BuildId).zip' 
-    replaceExistingArchive: true
+
 
 - script:  >-
       curl
