@@ -23,10 +23,10 @@ steps:
   displayName: 'jekyll'
 
 - task: ArchiveFiles@2
-  displayName: Zip Site
+  displayName: 'Zip Site to $(Build.ArtifactStagingDirectory)/$(build.BuildId).zip'
   inputs:
     rootFolderOrFile: '_site'
-    includeRootFolder: true
+    includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(build.BuildId).zip' 
     replaceExistingArchive: true
